@@ -1,28 +1,14 @@
 const numeriDom = document.getElementById('numeri');
 const timerDom = document.getElementById('timer');
-const sceltaDom = document.getElementById('scelta')
+const sceltaDom = document.getElementById('scelta');
 
-const numeriDaGenerare = 5;
-const numeriInseriti = [];
-const numeriGenerati =[];
-const numeriGiusti = [];
+const numeriDaMostrare = generaNumeriCasuali(5, 1, 100) ;
+console.log (numeriDaMostrare);
 let secondi = 30;
-let tempoCheScorre = 1000;
 
 
-while (numeriGenerati.length < numeriDaGenerare){
-    let numeroCasuale = (Math.floor(Math.random() * 100 + 1));
-    
-    if (!numeriGenerati.includes(numeroCasuale)){
-        numeriGenerati.push(numeroCasuale);
-    }
-}
-
-console.log (numeriGenerati)
-
-
-for (let i = 0; i <numeriGenerati.length; i++){
-    numeriDom.innerHTML += `<li>${numeriGenerati[i]}</li>`
+for (let i = 0; i <numeriDaMostrare.length; i++){
+    numeriDom.innerHTML += `<li>${numeriDaMostrare[i]}</li>`
 }
 
 const clock = setInterval(function() {
@@ -36,24 +22,41 @@ const clock = setInterval(function() {
         secondi--;
     }
 
-}, tempoCheScorre);
+}, 1000);
+
+
+//funzioni
+function generaNumeriCasuali(numeriDaGenerare, min, max){
+    const numeriGenerati =[];
+    while (numeriGenerati.length < numeriDaGenerare){
+        let numeroCasuale = (Math.floor(Math.random() * max + min));
+        
+        if (!numeriGenerati.includes(numeroCasuale)){
+            numeriGenerati.push(numeroCasuale);
+        }
+    }
+    return numeriGenerati;
+}
 
 
 setTimeout(inserisciNumero, 32000);
 function inserisciNumero(){
-    while (numeriInseriti.length < numeriDaGenerare){
+    const numeriInseriti = [];
+    const numeriGiusti = [];
+    while (numeriInseriti.length < numeriDaMostrare.length){
         let numeroScelto = parseInt(prompt('inserisci un numero'));
-        numeriInseriti.push(numeroScelto)
-        if (numeriGenerati.includes(numeroScelto)){
-            numeriGiusti.push(numeroScelto)
-            console.log(numeroScelto)
+        numeriInseriti.push(numeroScelto);
+        if (numeriDaMostrare.includes(numeroScelto)){
+            numeriGiusti.push(numeroScelto);
+            
         }      
-        console.log(numeriGiusti)
+        console.log(numeriGiusti);
     }
 
-    console.log(numeriInseriti)
-    sceltaDom.innerHTML = `hai scelto ${numeriInseriti} e hai indovinato ${numeriGiusti} per un totale di ${numeriGiusti.length}`
+    console.log(numeriInseriti);
+    sceltaDom.innerHTML = `hai scelto ${numeriInseriti} e hai indovinato ${numeriGiusti} per un totale di ${numeriGiusti.length}`;
 }
+
 
 
 
